@@ -1,6 +1,7 @@
 import React from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
+import MenuSistema from '../../MenuSistema';
 
 
 export default function FormEntregador () {
@@ -8,6 +9,7 @@ const estados = [{key:'1',text:'Pernambuco',value:'PE'}]
     return (
 
         <div>
+          <MenuSistema tela={'entregador'} />
 
             <div style={{marginTop: '3%'}}>
 
