@@ -18,13 +18,13 @@ export default function FormEntregador() {
     const [foneFixo, setFoneFixo] = useState();
     const [qtdEntregasRealizadas, setQtdEntregasRealizadas] = useState();
     const [valorFrete, setValorFrete] = useState();
-    const [enderecoRua, setEnderecoRua] = useState();
-    const [enderecoComplemento, setEnderecoComplemento] = useState();
-    const [enderecoNumero, setEnderecoNumero] = useState();
-    const [enderecoBairro, setEnderecoBairro] = useState();
-    const [enderecoCidade, setEnderecoCidade] = useState();
-    const [enderecoCep, setEnderecoCep] = useState();
-    const [enderecoUf, setEnderecoUf] = useState();
+    const [Rua, setRua] = useState();
+    const [Complemento, setComplemento] = useState();
+    const [Numero, setNumero] = useState();
+    const [Bairro, setBairro] = useState();
+    const [Cidade, setCidade] = useState();
+    const [Cep, setCep] = useState();
+    const [Uf, setUf] = useState();
     const [ativo, setAtivo] = useState(true);
 
     const estados = [{ key: '1', text: 'Pernambuco', value: 'PE' }];
@@ -42,13 +42,13 @@ export default function FormEntregador() {
                     setFoneFixo(response.data.foneFixo)
                     setQtdEntregasRealizadas(response.data.qtdEntregasRealizadas)
                     setValorFrete(response.data.valorFrete)
-                    setEnderecoRua(response.data.enderecoRua)
-                    setEnderecoComplemento(response.data.enderecoComplemento)
-                    setEnderecoNumero(response.data.enderecoNumero)
-                    setEnderecoBairro(response.data.enderecoBairro)
-                    setEnderecoCep(response.data.enderecoCep)
-                    setEnderecoCidade(response.data.enderecoCidade)
-                    setEnderecoUf(response.data.enderecoUf)
+                    setRua(response.data.Rua)
+                    setComplemento(response.data.Complemento)
+                    setNumero(response.data.Numero)
+                    setBairro(response.data.Bairro)
+                    setCep(response.data.Cep)
+                    setCidade(response.data.Cidade)
+                    setUf(response.data.Uf)
                     setAtivo(response.data.ativo)                    
                 })
         }
@@ -65,24 +65,30 @@ export default function FormEntregador() {
             foneFixo: foneFixo,
             qtdEntregasRealizadas: qtdEntregasRealizadas,
             valorFrete:valorFrete,
-            enderecoRua: enderecoRua,
-            enderecoComplemento: enderecoComplemento,
-            enderecoNumero: enderecoNumero,
-            enderecoBairro: enderecoBairro,
-            enderecoCep: enderecoCep,
-            enderecoCidade: enderecoCidade,
-            enderecoUf: enderecoUf,
+            rua: Rua,
+            complemento: Complemento,
+            numero: Numero,
+            bairro: Bairro,
+            cep: Cep,
+            cidade: Cidade,
+            uf: Uf,
             ativo:ativo
 
         }
  
         if (idEntregador != null) { //Alteração:
             axios.put("http://localhost:8080/api/entregador/" + idEntregador, entregadorRequest)
-            .then((response) => { console.log('Entregador alterado com sucesso.') })
-            .catch((error) => { console.log('Erro ao alter um entregador.') })
+            .then((response) => {
+                 console.log('Entregador alterado com sucesso.')
+                 })
+            .catch((error) => {
+                console.log('Erro ao alter um entregador.') 
+            })
         } else { //Cadastro:
             axios.post("http://localhost:8080/api/entregador", entregadorRequest)
-            .then((response) => { console.log('Entregador cadastrado com sucesso.') })
+            .then((response) => {
+                 console.log('Entregador cadastrado com sucesso.') 
+                })
             .catch((error) => { console.log('Erro ao incluir o entregador.') })
         }
  }
@@ -231,8 +237,8 @@ export default function FormEntregador() {
                                     required
                                     fluid
                                     label='Rua'
-                                    value={enderecoRua}
-                                    onChange={(e) => setEnderecoRua(e.target.value)}
+                                    value={Rua}
+                                    onChange={(e) => setRua(e.target.value)}
                                     maxLength="100"
                                 />
 
@@ -241,8 +247,8 @@ export default function FormEntregador() {
                                     fluid
                                     label='Numero'
                                     width={6}
-                                    value={enderecoNumero}
-                                    onChange={(e) => setEnderecoNumero(e.target.value)}
+                                    value={Numero}
+                                    onChange={(e) => setNumero(e.target.value)}
                                 />
 
                             </Form.Group>
@@ -253,8 +259,8 @@ export default function FormEntregador() {
                                     required
                                     fluid
                                     label='Bairro'
-                                    value={enderecoBairro}
-                                    onChange={(e) => setEnderecoBairro(e.target.value)}
+                                    value={Bairro}
+                                    onChange={(e) => setBairro(e.target.value)}
                                     maxLength="100"
                                 />
 
@@ -262,8 +268,8 @@ export default function FormEntregador() {
                                     required
                                     fluid
                                     label='Cidade'
-                                    value={enderecoCidade}
-                                    onChange={(e) => setEnderecoCidade(e.target.value)}
+                                    value={Cidade}
+                                    onChange={(e) => setCidade(e.target.value)}
                                 />
 
                             </Form.Group>
@@ -275,8 +281,8 @@ export default function FormEntregador() {
                                     fluid
                                     label='UF'
                                     options={estados}
-                                    value={enderecoUf}
-                                    onChange={(e, { value }) => setEnderecoUf(value)}
+                                    value={Uf}
+                                    onChange={(e, { value }) => setUf(value)}
                                     maxLength="100"
                                 />
 
@@ -286,8 +292,8 @@ export default function FormEntregador() {
                                 <Form.Input
                                     fluid
                                     label='Complemento'
-                                    value={enderecoComplemento}
-                                    onChange={(e) => setEnderecoComplemento(e.target.value)}
+                                    value={Complemento}
+                                    onChange={(e) => setComplemento(e.target.value)}
                                     maxLength="100"
                                 />
                             </Form.Group>

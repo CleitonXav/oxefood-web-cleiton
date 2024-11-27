@@ -96,6 +96,16 @@ export default function ListEntregador() {
                                     <Table.HeaderCell>Data de Nascimento</Table.HeaderCell>
                                     <Table.HeaderCell>Fone Celular</Table.HeaderCell>
                                     <Table.HeaderCell>Fone Fixo</Table.HeaderCell>
+                                    <Table.HeaderCell>QtdEntregasRealizada</Table.HeaderCell>
+                                    <Table.HeaderCell>ValorFrete</Table.HeaderCell>
+                                    <Table.HeaderCell>Rua</Table.HeaderCell>
+                                    <Table.HeaderCell>Complemento</Table.HeaderCell>
+                                    <Table.HeaderCell>Numero</Table.HeaderCell>
+                                    <Table.HeaderCell>Bairro</Table.HeaderCell>
+                                    <Table.HeaderCell>Cep</Table.HeaderCell>
+                                    <Table.HeaderCell>Cidade</Table.HeaderCell>
+                                    <Table.HeaderCell>Uf</Table.HeaderCell>
+                                    <Table.HeaderCell>Ativo</Table.HeaderCell>
 
                                     <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                                 </Table.Row>
@@ -112,7 +122,17 @@ export default function ListEntregador() {
                                         <Table.Cell>{formatarData(entregador.dataNascimento)}</Table.Cell>
                                         <Table.Cell>{entregador.foneCelular}</Table.Cell>
                                         <Table.Cell>{entregador.foneFixo}</Table.Cell>
-                                        
+                                        <Table.Cell>{entregador.qtdEntregasRealizadas}</Table.Cell>
+                                        <Table.Cell>{entregador.valorFrete}</Table.Cell>
+                                        <Table.Cell>{entregador.rua}</Table.Cell>
+                                        <Table.Cell>{entregador.complemento}</Table.Cell>
+                                        <Table.Cell>{entregador.numero}</Table.Cell>
+                                        <Table.Cell>{entregador.bairro}</Table.Cell>
+                                        <Table.Cell>{entregador.cep}</Table.Cell>
+                                        <Table.Cell>{entregador.cidade}</Table.Cell>
+                                        <Table.Cell>{entregador.uf}</Table.Cell>
+                                        <Table.Cell>{entregador.ativo}</Table.Cell>
+                                                                                
                                         <Table.Cell textAlign='center'>
                                             <Button
                                                 inverted

@@ -111,7 +111,7 @@ export default function FormProduto() {
 
                         </Form.Group>
 
-                        <Form.TextArea placeholder='descrição do produto'
+                        <Form.TextArea placeholder='descricao do produto'
                             label='Descricao'
                             cols='400'
                             value={descricao}

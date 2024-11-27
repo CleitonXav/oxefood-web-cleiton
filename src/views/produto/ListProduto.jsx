@@ -81,11 +81,13 @@ return(
 
                       <Table.Header>
                           <Table.Row>
-                              <Table.HeaderCell>Nome</Table.HeaderCell>
-                              <Table.HeaderCell>CPF</Table.HeaderCell>
-                              <Table.HeaderCell>Data de Nascimento</Table.HeaderCell>
-                              <Table.HeaderCell>Fone Celular</Table.HeaderCell>
-                              <Table.HeaderCell>Fone Fixo</Table.HeaderCell>
+                              <Table.HeaderCell>titulo</Table.HeaderCell>
+                              <Table.HeaderCell>codigoDoProduto</Table.HeaderCell>
+                              <Table.HeaderCell>descricao</Table.HeaderCell>
+                              <Table.HeaderCell>valorUnitario</Table.HeaderCell>
+                              <Table.HeaderCell>tempoDeEntregaMinimoEmMinutos</Table.HeaderCell>
+                              <Table.HeaderCell>tempoDeEntregaMaximoEmMinutos</Table.HeaderCell>
+
                               <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                           </Table.Row>
                       </Table.Header>
@@ -95,11 +97,13 @@ return(
                           { lista.map(produto => (
 
                               <Table.Row key={produto.id}>
-                                  <Table.Cell>{produto.nome}</Table.Cell>
-                                  <Table.Cell>{produto.cpf}</Table.Cell>
-                                  <Table.Cell>{formatarData(produto.dataNascimento)}</Table.Cell>
-                                  <Table.Cell>{produto.foneCelular}</Table.Cell>
-                                  <Table.Cell>{produto.foneFixo}</Table.Cell>
+                                  <Table.Cell>{produto.titulo}</Table.Cell>
+                                  <Table.Cell>{produto.codigoDoProduto}</Table.Cell>                           
+                                  <Table.Cell>{produto.descricao}</Table.Cell>
+                                  <Table.Cell>{produto.valorUnitario}</Table.Cell>
+                                  <Table.Cell>{produto.tempoDeEntregaMinimoEmMinutos}</Table.Cell>
+                                  <Table.Cell>{produto.tempoDeEntregaMaximoEmMinutos}</Table.Cell>
+
                                   <Table.Cell textAlign='center'>
 
                                       <Button
