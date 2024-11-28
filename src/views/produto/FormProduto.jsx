@@ -134,7 +134,7 @@ export default function FormProduto() {
                                 label='Tempo de entrega maximo em minutos'
                                 width={6}
                                 value={tempoDeEntregaMaximoEmMinutos}
-                                onChange={e => setTempoDeEntregaMaximoEmMinutos(e.target.value)}
+                                onChange={e => setTempoDeEntregaMinimoEmMinutos(e.target.value)}
                             >
 
                             </Form.Input>
@@ -144,7 +144,7 @@ export default function FormProduto() {
                                 label='Tempo de entrega minimo em minutos'
                                 width={6}
                                 value={tempoDeEntregaMinimoEmMinutos}
-                                onChange={e => setTempoDeEntregaMinimoEmMinutos(e.target.value)}
+                                onChange={e => setTempoDeEntregaMaximoEmMinutos(e.target.value)}
                             >
 
                             </Form.Input>

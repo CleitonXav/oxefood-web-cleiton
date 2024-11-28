@@ -17,7 +17,7 @@ export default function FormEntregador() {
     const [foneCelular, setFoneCelular] = useState();
     const [foneFixo, setFoneFixo] = useState();
     const [qtdEntregasRealizadas, setQtdEntregasRealizadas] = useState();
-    const [valorFrete, setValorFrete] = useState();
+    const [valorPorFrete, setValorPorFrete] = useState();
     const [Rua, setRua] = useState();
     const [Complemento, setComplemento] = useState();
     const [Numero, setNumero] = useState();
@@ -31,7 +31,7 @@ export default function FormEntregador() {
 
     useEffect(() => {
         if (state != null && state.id != null) {
-            axios.get("http://localhost:8080/api/entregador/" + state.id)
+            axios.get("http://localhost:8081/api/entregador/" + state.id)
                 .then((response) => {
                     setIdEntregador(response.data.id)
                     setNome(response.data.nome)
@@ -41,7 +41,7 @@ export default function FormEntregador() {
                     setFoneCelular(response.data.foneCelular)
                     setFoneFixo(response.data.foneFixo)
                     setQtdEntregasRealizadas(response.data.qtdEntregasRealizadas)
-                    setValorFrete(response.data.valorFrete)
+                    setValorPorFrete(response.data.valorPorFrete)
                     setRua(response.data.Rua)
                     setComplemento(response.data.Complemento)
                     setNumero(response.data.Numero)
@@ -59,12 +59,12 @@ export default function FormEntregador() {
         let entregadorRequest = {
             nome: nome,
             cpf: cpf,
-            rg:rg,
+            rg: rg,
             dataNascimento: dataNascimento,
             foneCelular: foneCelular,
             foneFixo: foneFixo,
             qtdEntregasRealizadas: qtdEntregasRealizadas,
-            valorFrete:valorFrete,
+            valorPorFrete: valorPorFrete,
             rua: Rua,
             complemento: Complemento,
             numero: Numero,
@@ -77,7 +77,7 @@ export default function FormEntregador() {
         }
  
         if (idEntregador != null) { //Alteração:
-            axios.put("http://localhost:8080/api/entregador/" + idEntregador, entregadorRequest)
+            axios.put("http://localhost:8081/api/entregador/" + idEntregador, entregadorRequest)
             .then((response) => {
                  console.log('Entregador alterado com sucesso.')
                  })
@@ -85,7 +85,7 @@ export default function FormEntregador() {
                 console.log('Erro ao alter um entregador.') 
             })
         } else { //Cadastro:
-            axios.post("http://localhost:8080/api/entregador", entregadorRequest)
+            axios.post("http://localhost:8081/api/entregador", entregadorRequest)
             .then((response) => {
                  console.log('Entregador cadastrado com sucesso.') 
                 })
@@ -226,8 +226,8 @@ export default function FormEntregador() {
                                     fluid
                                     label='Valor Por Frete'
                                     width={6}
-                                    value={valorFrete}
-                                    onChange={(e) => setValorFrete(e.target.value)}
+                                    value={valorPorFrete}
+                                    onChange={(e) => setValorPorFrete(e.target.value)}
                                 />
                             </Form.Group>
 
@@ -262,6 +262,14 @@ export default function FormEntregador() {
                                     value={Bairro}
                                     onChange={(e) => setBairro(e.target.value)}
                                     maxLength="100"
+                                />
+
+                                <Form.Input
+                                    required
+                                    fluid
+                                    label='CEP'
+                                    value={Cep}
+                                    onChange={(e) => setCep(e.target.value)}
                                 />
 
                                 <Form.Input
