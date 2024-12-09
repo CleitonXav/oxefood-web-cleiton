@@ -27,7 +27,7 @@ export default function FormEntregador() {
     const [Uf, setUf] = useState();
     const [ativo, setAtivo] = useState(true);
 
-    const estados = [{ key: '1', text: 'Pernambuco', value: 'PE' }];
+    const estado = [{ key: '1', text: 'Pernambuco', value: 'PE' }];
 
     useEffect(() => {
         if (state != null && state.id != null) {
@@ -288,7 +288,7 @@ export default function FormEntregador() {
                                     required
                                     fluid
                                     label='UF'
-                                    options={estados}
+                                    options={estado}
                                     value={Uf}
                                     onChange={(e, { value }) => setUf(value)}
                                     maxLength="100"

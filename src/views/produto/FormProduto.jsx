@@ -99,8 +99,8 @@ export default function FormProduto() {
                             <Form.Input
                                 required
                                 fluid
-                                label='Código do Produto'
-                                placeholder='informe o código do produto'
+                                label='Codigo do Produto'
+                                placeholder='informe o codigo do produto'
                                 value={codigoDoProduto}
                                 onChange={e => setCodigoDoProduto(e.target.value)}
                             >
@@ -131,7 +131,7 @@ export default function FormProduto() {
 
                             <Form.Input
                                 fluid
-                                label='Tempo de entrega minimo em minutos'
+                                label='Tempo de entrega Minimo'
                                 width={6}
                                 value={tempoDeEntregaMinimoEmMinutos}
                                 onChange={e => setTempoDeEntregaMinimoEmMinutos(e.target.value)}
