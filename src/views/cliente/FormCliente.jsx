@@ -133,7 +133,9 @@ export default function FormCliente() {
                     onChange={(e) => setDataNascimento(e.target.value)}
                   />
                 </Form.Input>
+
               </Form.Group>
+              
             </Form>
 
             <div style={{ marginTop: "4%" }}>

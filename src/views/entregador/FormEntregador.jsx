@@ -5,7 +5,6 @@ import axios from "axios";
 import MenuSistema from '../../MenuSistema';
 import { Link, useLocation } from "react-router-dom";
 
-
 export default function FormEntregador() {
     const { state } = useLocation();
     const [idEntregador, setIdEntregador] = useState();
@@ -19,20 +18,50 @@ export default function FormEntregador() {
     const [qtdEntregasRealizadas, setQtdEntregasRealizadas] = useState();
     const [valorPorFrete, setValorPorFrete] = useState();
     const [Rua, setRua] = useState();
-    const [Complemento, setComplemento] = useState();
     const [Numero, setNumero] = useState();
     const [Bairro, setBairro] = useState();
     const [Cidade, setCidade] = useState();
     const [Cep, setCep] = useState();
-    const [Uf, setUf] = useState();
+    const [uf, setUf] = useState();
+    const [Complemento, setComplemento] = useState();
     const [ativo, setAtivo] = useState(true);
 
-    const estado = [{ key: '1', text: 'Pernambuco', value: 'PE' }];
+    const estado = [
+        { key: 'ac', value: 'ac', text: 'Acre' },
+        { key: 'al', value: 'al', text: 'Alagoas' },
+        { key: 'ap', value: 'ap', text: 'Amapá' },
+        { key: 'am', value: 'am', text: 'Amazonas' },
+        { key: 'ba', value: 'ba', text: 'Bahia' },
+        { key: 'ce', value: 'ce', text: 'Ceará' },
+        { key: 'df', value: 'df', text: 'Distrito Federal' },
+        { key: 'es', value: 'es', text: 'Espírito Santo' },
+        { key: 'go', value: 'go', text: 'Goiás' },
+        { key: 'ma', value: 'ma', text: 'Maranhão' },
+        { key: 'mt', value: 'mt', text: 'Mato Grosso' },
+        { key: 'ms', value: 'ms', text: 'Mato Grosso do Sul' },
+        { key: 'mg', value: 'mg', text: 'Minas Gerais' },
+        { key: 'pa', value: 'pa', text: 'Pará' },
+        { key: 'pb', value: 'pb', text: 'Paraíba' },
+        { key: 'pr', value: 'pr', text: 'Paraná' },
+        { key: 'pe', value: 'pe', text: 'Pernambuco' },
+        { key: 'pi', value: 'pi', text: 'Piauí' },
+        { key: 'rj', value: 'rj', text: 'Rio de Janeiro' },
+        { key: 'rn', value: 'rn', text: 'Rio Grande do Norte' },
+        { key: 'rs', value: 'rs', text: 'Rio Grande do Sul' },
+        { key: 'ro', value: 'ro', text: 'Rondônia' },
+        { key: 'rr', value: 'rr', text: 'Roraima' },
+        { key: 'sc', value: 'sc', text: 'Santa Catarina' },
+        { key: 'sp', value: 'sp', text: 'São Paulo' },
+        { key: 'se', value: 'se', text: 'Sergipe' },
+        { key: 'to', value: 'to', text: 'Tocantins' },
+    ];
 
     useEffect(() => {
         if (state != null && state.id != null) {
             axios.get("http://localhost:8081/api/entregador/" + state.id)
                 .then((response) => {
+                    const data = response.data.dataNascimento.split('-');
+                    const formattedNascimento = [data[2], data[1], data[0]].join("/")
                     setIdEntregador(response.data.id)
                     setNome(response.data.nome)
                     setCpf(response.data.cpf)
@@ -49,7 +78,14 @@ export default function FormEntregador() {
                     setCep(response.data.Cep)
                     setCidade(response.data.Cidade)
                     setUf(response.data.Uf)
-                    setAtivo(response.data.ativo)                    
+                    setAtivo(response.data.ativo)   
+                    const uf = response.data.uf;
+                    setUf(uf)
+
+                    const ufSelecionado = uf.find(ufItem => ufItem.text === uf);
+                    if (ufSelecionado) {
+                        setUf(ufSelecionado.key);
+                    }                 
                 })
         }
     }, [state])
@@ -71,11 +107,13 @@ export default function FormEntregador() {
             bairro: Bairro,
             cep: Cep,
             cidade: Cidade,
-            uf: Uf,
+            uf: uf,
             ativo:ativo
 
         }
  
+        // console.log(entregadorRequest)
+
         if (idEntregador != null) { //Alteração:
             axios.put("http://localhost:8081/api/entregador/" + idEntregador, entregadorRequest)
             .then((response) => {
@@ -94,11 +132,9 @@ export default function FormEntregador() {
  }
 
  function formatarData(dataParam) {
-
     if (dataParam === null || dataParam === '' || dataParam === undefined) {
         return ''
     }
-
     let arrayData = dataParam.split('-');
     return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0];
 }
@@ -113,11 +149,11 @@ export default function FormEntregador() {
                 <Container textAlign='justified' >
 
                 { idEntregador === undefined &&
-    <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
-}
-{ idEntregador != undefined &&
-    <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
-}
+                    <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+                }
+                { idEntregador != undefined &&
+                    <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+                }
 
                     <Divider />
 
@@ -131,9 +167,10 @@ export default function FormEntregador() {
                                     required
                                     fluid
                                     label='Nome'
+                                    maxLength="100"
                                     value={nome}
                                     onChange={(e) => setNome(e.target.value)}
-                                    maxLength="100"
+                                    
                                 />
 
                                 <Form.Input
@@ -289,7 +326,7 @@ export default function FormEntregador() {
                                     fluid
                                     label='UF'
                                     options={estado}
-                                    value={Uf}
+                                    value={uf}
                                     onChange={(e, { value }) => setUf(value)}
                                     maxLength="100"
                                 />

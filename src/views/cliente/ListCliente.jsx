@@ -26,6 +26,19 @@ export default function ListCliente () {
    function confirmaRemover(id) {
     setOpenModal(true)
     setIdRemover(id)
+
+}
+
+function CadastrarEndereco(id) {
+ setOpenModal(true)
+ setIdRemover(id)
+
+}
+
+function VisualizarEndereco(id) {
+ setOpenModal(true)
+ setIdRemover(id)
+
 }
 
    function formatarData(dataParam) {
@@ -121,7 +134,27 @@ return(
                                             icon
                                             onClick={e => confirmaRemover(cliente.id)}>
                                             <Icon name='trash' />
-                                            </Button>
+                                            </Button> &nbsp;
+
+                                     <Button
+                                            inverted
+                                            circular
+                                            color='red'
+                                            title='Clique aqui para cadastrar endereco'
+                                            icon
+                                            onClick={e => CadastrarEndereco(CadastrarEndereco.id)}>
+                                            <Icon name='trash' />
+                                            </Button> &nbsp;
+
+                                     <Button
+                                            inverted
+                                            circular
+                                            color='red'
+                                            title='Clique aqui para visualizar endereco'
+                                            icon
+                                            onClick={e => VisualizarEndereco(VisualizarEndereco.id)}>
+                                            <Icon name='trash' />
+                                            </Button>       
 
 
                                        </Table.Cell>
