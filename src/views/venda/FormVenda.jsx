@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import axios from "axios";
-import MenuSistema from '../../MenuSistema';
 import { Link, useLocation } from "react-router-dom";
+import { notifyError, notifySuccess } from '../../views/util/Util';
+import MenuSistema from '../../MenuSistema';
+
 
 export default function FormVenda() {
     const [cliente, setCliente] = useState();
@@ -62,18 +64,34 @@ export default function FormVenda() {
 
         if (idVenda != null) { //Alteração:
             axios.put("http://localhost:8081/api/venda/" + idVenda, vendaRequest)
-                .then((response) => { console.log('Venda alterado com sucesso.') })
-                .catch((error) => { console.log('Erro ao alter um venda.') })
+                .then((response) => { 
+                    notifySuccess('Venda alterado com sucesso.') 
+                })
+                .catch((error) => { 
+                        if (error.response.data.errors != undefined) {
+                            for (let i = 0; i < error.response.data.errors.length; i++) {
+                                notifyError(error.response.data.errors[i].defaultMessage)
+                            }
+                        } else {
+                            notifyError(error.response.data.message)
+                        } 
+                })
         } else { //Cadastro:
             axios.post("http://localhost:8081/api/venda", vendaRequest)
-                .then((response) => { console.log('Venda cadastrado com sucesso.') })
-                .catch((error) => { console.log('Erro ao incluir o venda.') })
-        }
-
-        // console.log(vendaRequest)
-
+                .then((response) => { 
+                    notifySuccess('Venda cadastrado com sucesso.') 
+                })
+                .catch((error) => { 
+                        if (error.response.data.errors != undefined) {
+                            for (let i = 0; i < error.response.data.errors.length; i++) {
+                                notifyError(error.response.data.errors[i].defaultMessage)
+                            }
+                        } else {
+                            notifyError(error.response.data.message)
+                        } 
+                })
+        }        
     }
-
 
     return (
 

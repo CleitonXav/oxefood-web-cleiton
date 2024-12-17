@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Icon, Table, Modal, Header } from 'semantic-ui-react';
+import { notifyError, notifySuccess } from '../../views/util/Util';
 import MenuSistema from '../../MenuSistema';
 
 export default function ListVenda() {
@@ -42,8 +43,7 @@ export default function ListVenda() {
 
         await axios.delete('http://localhost:8081/api/venda/' + idRemover)
             .then((response) => {
-
-                console.log('Venda removido com sucesso.')
+                notifySuccess('Venda removido com sucesso.')
 
                 axios.get("http://localhost:8081/api/venda")
                     .then((response) => {
@@ -51,12 +51,16 @@ export default function ListVenda() {
                     })
             })
             .catch((error) => {
-                console.log('Erro ao remover um Venda.')
+                    if (error.response.data.errors != undefined) {
+                        for (let i = 0; i < error.response.data.errors.length; i++) {
+                            notifyError(error.response.data.errors[i].defaultMessage)
+                        }
+                    } else {
+                        notifyError(error.response.data.message)
+                    }
             })
         setOpenModal(false)
     }
-
-
 
     return (
         <div>

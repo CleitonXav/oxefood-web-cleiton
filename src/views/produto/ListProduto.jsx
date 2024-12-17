@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Icon, Table, Modal, Header } from 'semantic-ui-react';
+import { notifyError, notifySuccess } from '../../views/util/Util';
 import MenuSistema from '../../MenuSistema';
 
 export default function ListProduto () {
@@ -42,7 +43,7 @@ async function remover() {
     await axios.delete('http://localhost:8081/api/produto/' + idRemover)
     .then((response) => {
 
-        console.log('Produto removido com sucesso.')
+        notifySuccess('Produto removido com sucesso.')
 
         axios.get("http://localhost:8081/api/produto")
         .then((response) => {
@@ -50,7 +51,14 @@ async function remover() {
         })
     })
     .catch((error) => {
-        console.log('Erro ao remover um produto.')
+        if (error.response.data.errors != undefined) {
+            for (let i = 0; i < error.response.data.errors.length; i++) {
+                notifyError(error.response.data.errors[i].defaultMessage)
+            }
+        } else {
+            notifyError(error.response.data.message)
+        }
+
     })
     setOpenModal(false)
 }

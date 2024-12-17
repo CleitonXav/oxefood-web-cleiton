@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
 import axios from "axios";
-import MenuSistema from '../../MenuSistema';
 import { Link, useLocation } from "react-router-dom";
+import { notifyError, notifySuccess } from '../../views/util/Util';
+import MenuSistema from '../../MenuSistema';
+
 
 export default function FormEntregador() {
     const { state } = useLocation();
@@ -117,17 +119,32 @@ export default function FormEntregador() {
         if (idEntregador != null) { //Alteração:
             axios.put("http://localhost:8081/api/entregador/" + idEntregador, entregadorRequest)
             .then((response) => {
-                 console.log('Entregador alterado com sucesso.')
+                notifySuccess('Entregador alterado com sucesso.')
                  })
             .catch((error) => {
-                console.log('Erro ao alter um entregador.') 
+                    if (error.response.data.errors != undefined) {
+                        for (let i = 0; i < error.response.data.errors.length; i++) {
+                            notifyError(error.response.data.errors[i].defaultMessage)
+                        }
+                    } else {
+                        notifyError(error.response.data.message)
+                    }
             })
         } else { //Cadastro:
             axios.post("http://localhost:8081/api/entregador", entregadorRequest)
             .then((response) => {
-                 console.log('Entregador cadastrado com sucesso.') 
-                })
-            .catch((error) => { console.log('Erro ao incluir o entregador.') })
+                    notifySuccess('Entregador cadastrado com sucesso.') 
+            })
+            .catch((error) => {
+                    if (error.response.data.errors != undefined) {
+                        for (let i = 0; i < error.response.data.errors.length; i++) {
+                            notifyError(error.response.data.errors[i].defaultMessage)
+                        }
+                    } else {
+                        notifyError(error.response.data.message)
+                    }
+                
+            })
         }
  }
 

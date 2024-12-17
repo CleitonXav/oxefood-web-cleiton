@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Icon, Modal,Header, Table } from 'semantic-ui-react';
+import { notifyError, notifySuccess } from '../../views/util/Util';
 import MenuSistema from '../../MenuSistema';
 
 export default function ListCliente () {
@@ -55,7 +56,7 @@ async function remover() {
     await axios.delete('http://localhost:8081/api/cliente/' + idRemover)
     .then((response) => {
 
-        console.log('Cliente removido com sucesso.')
+        notifySuccess('Cliente removido com sucesso.')
 
         axios.get("http://localhost:8081/api/cliente")
         .then((response) => {
@@ -63,7 +64,14 @@ async function remover() {
         })
     })
     .catch((error) => {
-        console.log('Erro ao remover um cliente.')
+                if (error.response.data.errors != undefined) {
+                    for (let i = 0; i < error.response.data.errors.length; i++) {
+                        notifyError(error.response.data.errors[i].defaultMessage)
+                }
+        } else {
+            notifyError(error.response.data.message)
+        }
+
     })
     setOpenModal(false)
 }
@@ -116,46 +124,25 @@ return(
                                   <Table.Cell>{cliente.foneFixo}</Table.Cell>
                                   <Table.Cell textAlign='center'>
 
-                                      <Button
-                                          inverted
-                                          circular
-                                          color='green'
-                                          title='Clique aqui para editar os dados deste cliente'
-                                          icon>
-                                            <Link to="/form-cliente" state={{id: cliente.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
-
-                                      </Button> &nbsp;
-                          
-                                      <Button
+                                    <Link to="/form-cliente" state={{ id: cliente.id }} style={{ color: 'green' }}>
+                                        <Button
                                             inverted
                                             circular
-                                            color='red'
-                                            title='Clique aqui para remover este cliente'
-                                            icon
-                                            onClick={e => confirmaRemover(cliente.id)}>
-                                            <Icon name='trash' />
-                                            </Button> &nbsp;
-
-                                     <Button
-                                            inverted
-                                            circular
-                                            color='red'
-                                            title='Clique aqui para cadastrar endereco'
-                                            icon
-                                            onClick={e => CadastrarEndereco(CadastrarEndereco.id)}>
-                                            <Icon name='trash' />
-                                            </Button> &nbsp;
-
-                                     <Button
-                                            inverted
-                                            circular
-                                            color='red'
-                                            title='Clique aqui para visualizar endereco'
-                                            icon
-                                            onClick={e => VisualizarEndereco(VisualizarEndereco.id)}>
-                                            <Icon name='trash' />
-                                            </Button>       
-
+                                            color='green'
+                                            title='Clique aqui para editar os dados deste cliente'
+                                            icon>
+                                            <Icon name='edit' />
+                                        </Button> &nbsp;
+                                    </Link>
+                                    <Button
+                                        inverted
+                                        circular
+                                        color='red'
+                                        title='Clique aqui para remover este cliente'
+                                        icon
+                                        onClick={e => confirmaRemover(cliente.id)}>
+                                        <Icon name='trash' />
+                                    </Button>
 
                                        </Table.Cell>
                                    </Table.Row>

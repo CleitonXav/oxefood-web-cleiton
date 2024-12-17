@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import InputMask from "react-input-mask";
 import { Button, Container, Divider, Form, Icon, TexArea } from "semantic-ui-react";
+import { notifyError, notifySuccess } from '../../views/util/Util';
 import MenuSistema from "../../MenuSistema";
 
 export default function FormProduto() {
@@ -46,18 +47,32 @@ export default function FormProduto() {
       
       axios.put("http://localhost:8081/api/produto/" + idProduto, produtoRequest)
       .then((response) => {
-         console.log('Produto alterado com sucesso.') 
+        notifySuccess('Produto alterado com sucesso.') 
       })
       .catch((error) => {
-         console.log('Erro ao alterar um produto.') 
+                if (error.response.data.errors != undefined) {
+                    for (let i = 0; i < error.response.data.errors.length; i++) {
+                        notifyError(error.response.data.errors[i].defaultMessage)
+                    }
+                } else {
+                    notifyError(error.response.data.message)
+                }
+
       })
   } else { //Cadastro:
       axios.post("http://localhost:8081/api/produto", produtoRequest)
       .then((response) => {
-         console.log('Produto cadastrado com sucesso.') 
+        notifySuccess('Produto cadastrado com sucesso.') 
       })
       .catch((error) => {
-         console.log('Erro ao incluir o produto.') 
+        if (error.response.data.errors != undefined) {
+            for (let i = 0; i < error.response.data.errors.length; i++) {
+                notifyError(error.response.data.errors[i].defaultMessage)
+            }
+        } else {
+            notifyError(error.response.data.message)
+        }
+         
       })
   }
   }
