@@ -319,12 +319,19 @@ export default function FormEntregador() {
                                 />
 
                                 <Form.Input
-                                    required
                                     fluid
                                     label='CEP'
-                                    value={Cep}
-                                    onChange={(e) => setCep(e.target.value)}
-                                />
+                                    maxLength="100"
+                                    width={6}
+                                >
+                                    <InputMask
+                                        required
+                                        mask="99999-999"
+                                        value={Cep}
+                                        onChange={e => setCep(e.target.value)}
+
+                                    />
+                                </Form.Input>
 
                                 <Form.Input
                                     required

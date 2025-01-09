@@ -125,7 +125,8 @@ export default function ListEntregador() {
                                                 title='Clique aqui para editar os dados deste entregador'
                                                 icon>
                                                 <Icon name='edit' />
-                                            </Button> &nbsp;
+                                            </Button>                                             
+                                            &nbsp;
                                         </Link>
                                         <Button
                                             inverted
