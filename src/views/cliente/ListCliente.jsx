@@ -143,6 +143,16 @@ return(
                                         onClick={e => confirmaRemover(cliente.id)}>
                                         <Icon name='trash' />
                                     </Button>
+                                   
+                                    <Button
+                                        inverted
+                                        circular
+                                        color='blue'
+                                        title='Clique aqui para cadastrar endereco'
+                                        icon
+                                        onClick={e => CadastrarEndereco(cliente.id)}>
+                                        <Icon name='trash' />
+                                    </Button>
 
                                        </Table.Cell>
                                    </Table.Row>

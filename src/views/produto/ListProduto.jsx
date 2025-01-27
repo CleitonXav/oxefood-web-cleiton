@@ -10,6 +10,12 @@ export default function ListProduto () {
     const [openModal, setOpenModal] = useState(false);
     const [idRemover, setIdRemover] = useState();
     const [lista, setLista] = useState([]);
+    const [menuFiltro, setMenuFiltro] = useState();
+    const [codigo, setCodigo] = useState();
+    const [titulo, setTitulo] = useState();
+    const [idCategoria, setIdCategoria] = useState();
+    const [listaCategoriaProduto, setListaCategoriaProduto] = useState([]);
+
 
     function confirmaRemover(id) {
         setOpenModal(true)
@@ -89,12 +95,14 @@ return(
 
                       <Table.Header>
                           <Table.Row>
-                              <Table.HeaderCell>titulo</Table.HeaderCell>
-                              <Table.HeaderCell>codigoDoProduto</Table.HeaderCell>
-                              <Table.HeaderCell>descricao</Table.HeaderCell>
-                              <Table.HeaderCell>valorUnitario</Table.HeaderCell>
-                              <Table.HeaderCell>tempoDeEntregaMinimoEmMinutos</Table.HeaderCell>
-                              <Table.HeaderCell>tempoDeEntregaMaximoEmMinutos</Table.HeaderCell>
+                              
+                              <Table.HeaderCell>Codigo</Table.HeaderCell>
+                              <Table.HeaderCell>Categoria</Table.HeaderCell>
+                              <Table.HeaderCell>Titulo</Table.HeaderCell>
+                              <Table.HeaderCell>Descricao</Table.HeaderCell>
+                              <Table.HeaderCell>Valor Unitario</Table.HeaderCell>
+                              <Table.HeaderCell>Tempo Entrega Minimo</Table.HeaderCell>
+                              <Table.HeaderCell>Tempo Entrega Maximo</Table.HeaderCell>
 
                               <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                           </Table.Row>
@@ -105,12 +113,14 @@ return(
                           { lista.map(produto => (
 
                               <Table.Row key={produto.id}>
+                                  
+                                  <Table.Cell>{produto.codigo}</Table.Cell> 
+                                  <Table.Cell>{produto.categoria.descricao}</Table.Cell>
                                   <Table.Cell>{produto.titulo}</Table.Cell>
-                                  <Table.Cell>{produto.codigoDoProduto}</Table.Cell>                           
                                   <Table.Cell>{produto.descricao}</Table.Cell>
                                   <Table.Cell>{produto.valorUnitario}</Table.Cell>
-                                  <Table.Cell>{produto.tempoDeEntregaMinimoEmMinutos}</Table.Cell>
-                                  <Table.Cell>{produto.tempoDeEntregaMaximoEmMinutos}</Table.Cell>
+                                  <Table.Cell>{produto.tempoEntregaMinimo}</Table.Cell>
+                                  <Table.Cell>{produto.tempoEntregaMaximo}</Table.Cell>
 
                                   <Table.Cell textAlign='center'>
 

@@ -2,10 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import InputMask from "react-input-mask";
-import { Button, Container, Divider, Form, Icon, TexArea } from "semantic-ui-react";
-import { notifyError, notifySuccess } from '../../views/util/Util';
+import { Button, Container, Divider, Form, Icon } from "semantic-ui-react";
 import MenuSistema from "../../MenuSistema";
+import { notifyError, notifySuccess } from '../../views/util/Util';
 
 export default function FormProduto() {
 
@@ -13,35 +12,45 @@ export default function FormProduto() {
   const [idProduto, setIdProduto] = useState();
 
   const [titulo, setTitulo] = useState();
-  const [codigoDoProduto, setCodigoDoProduto] = useState();
+  const [codigo, setCodigo] = useState();
   const [descricao, setDescricao] = useState();
   const [valorUnitario, setValorUnitario] = useState();
-  const [tempoDeEntregaMinimoEmMinutos, setTempoDeEntregaMinimoEmMinutos] = useState();
-  const [tempoDeEntregaMaximoEmMinutos, setTempoDeEntregaMaximoEmMinutos] = useState();
-
+  const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
+  const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+  const [listaCategoria, setListaCategoria] = useState([]);
+  const [idCategoria, setIdCategoria] = useState();
+  
   useEffect(() => {
     if (state != null && state.id != null) {
       axios.get("http://localhost:8081/api/produto/" + state.id)
       .then((response) => {
           setIdProduto(response.data.id);
           setTitulo(response.data.titulo);
-          setCodigoDoProduto(response.data.codigoDoProduto);
+          setCodigo(response.data.codigo);
           setDescricao(response.data.descricao);
           setValorUnitario(response.data.valorUnitario);
-          setTempoDeEntregaMinimoEmMinutos(response.data.tempoDeEntregaMinimoEmMinutos);
-          setTempoDeEntregaMaximoEmMinutos(response.data.tempoDeEntregaMaximoEmMinutos);
+          setTempoEntregaMinimo(response.data.tempoEntregaMinimo);
+          setTempoEntregaMaximo(response.data.tempoEntregaMaximo);
         });
     }
+
+    axios.get("http://localhost:8081/api/categoriaproduto")
+    .then((response) => {
+        const dropDownCategorias = response.data.map(c => ({ text: c.descricao, value: c.id }));
+        setListaCategoria(dropDownCategorias);
+    })
+
   }, [state]);
 
   function salvar() {
     let produtoRequest = {
+      idCategoria: idCategoria,
       titulo: titulo,
-      codigoDoProduto: codigoDoProduto,
+      codigo: codigo,
       descricao: descricao,
       valorUnitario: valorUnitario,
-      tempoDeEntregaMinimoEmMinutos: tempoDeEntregaMinimoEmMinutos,
-      tempoDeEntregaMaximoEmMinutos: tempoDeEntregaMaximoEmMinutos,
+      tempoEntregaMinimo: tempoEntregaMinimo,
+      tempoEntregaMaximo: tempoEntregaMaximo,
     }
     if (idProduto != null) { //Alteração:
       
@@ -116,15 +125,27 @@ export default function FormProduto() {
                                 fluid
                                 label='Codigo do Produto'
                                 placeholder='informe o codigo do produto'
-                                value={codigoDoProduto}
-                                onChange={e => setCodigoDoProduto(e.target.value)}
+                                value={codigo}
+                                onChange={e => setCodigo(e.target.value)}
                             >
 
                             </Form.Input>
 
+                            </Form.Group>
 
+                            <Form.Select
+                                required
+                                fluid
+                                tabIndex='3'
+                                placeholder='Selecione'
+                                label='Categoria'
+                                options={listaCategoria}
+                                value={idCategoria}
+                                onChange={(e,{value}) => {
+                                    setIdCategoria(value)
+                                }}
+                            />
 
-                        </Form.Group>
 
                         <Form.TextArea placeholder='descricao do produto'
                             label='Descricao'
@@ -148,8 +169,8 @@ export default function FormProduto() {
                                 fluid
                                 label='Tempo de entrega Minimo'
                                 width={6}
-                                value={tempoDeEntregaMinimoEmMinutos}
-                                onChange={e => setTempoDeEntregaMinimoEmMinutos(e.target.value)}
+                                value={tempoEntregaMinimo}
+                                onChange={e => setTempoEntregaMinimo(e.target.value)}
                             >
 
                             </Form.Input>
@@ -158,8 +179,8 @@ export default function FormProduto() {
                                 fluid
                                 label='Tempo de entrega maximo em minutos'
                                 width={6}
-                                value={tempoDeEntregaMaximoEmMinutos}
-                                onChange={e => setTempoDeEntregaMaximoEmMinutos(e.target.value)}
+                                value={tempoEntregaMaximo}
+                                onChange={e => setTempoEntregaMaximo(e.target.value)}
                             >
 
                             </Form.Input>
