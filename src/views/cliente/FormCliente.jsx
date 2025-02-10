@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import InputMask from "react-input-mask";
-import { Button, Container, Divider, Form, Icon } from "semantic-ui-react";
+import { Button, Container, Divider, Form, Icon,} from "semantic-ui-react";
 import { notifyError, notifySuccess } from '../../views/util/Util';
 import MenuSistema from "../../MenuSistema";
 
@@ -10,6 +10,8 @@ export default function FormCliente() {
   const { state } = useLocation();
   const [idCliente, setIdCliente] = useState();
 
+  const [email, setEmail] = useState();
+  const [senha, setSenha] = useState();
   const [nome, setNome] = useState();
   const [cpf, setCpf] = useState();
   const [dataNascimento, setDataNascimento] = useState();
@@ -21,6 +23,8 @@ export default function FormCliente() {
       axios.get("http://localhost:8081/api/cliente/" + state.id)
       .then((response) => {
           setIdCliente(response.data.id);
+          setEmail(response.data.email);
+          setSenha(response.data.senha);
           setNome(response.data.nome);
           setCpf(response.data.cpf);
           setDataNascimento(response.data.dataNascimento);
@@ -33,6 +37,8 @@ export default function FormCliente() {
   function salvar() {
 
     let clienteRequest = {
+        email: email,
+        senha: senha,
         nome: nome,
         cpf: cpf,
         dataNascimento: dataNascimento,
@@ -110,6 +116,31 @@ export default function FormCliente() {
                   maxLength="100"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
+                />
+
+                <Form.Input
+                    fluid
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    icon='user'
+                    iconPosition='left'
+                    placeholder='Informe seu e-mail'
+                    required
+                    label="Email"
+                    maxLength="100"
+                />
+
+                <Form.Input
+                    fluid
+                    value={senha}
+                    onChange={e => setSenha(e.target.value)}
+                    icon='lock'
+                    iconPosition='left'
+                    type='password'
+                    placeholder='Senha'
+                    required
+                    label="Senha"
+                    maxLength="100"
                 />
 
                 <Form.Input required fluid label="CPF">

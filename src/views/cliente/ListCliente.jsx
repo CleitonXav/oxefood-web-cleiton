@@ -102,9 +102,11 @@ return(
                   <Table color='orange' sortable celled>
 
                       <Table.Header>
-                          <Table.Row>
-                              <Table.HeaderCell>Nome</Table.HeaderCell>
+                          <Table.Row>                              
+                              <Table.HeaderCell>Nome</Table.HeaderCell>                              
                               <Table.HeaderCell>CPF</Table.HeaderCell>
+                              <Table.HeaderCell>Email</Table.HeaderCell>
+                              <Table.HeaderCell>Senha</Table.HeaderCell>
                               <Table.HeaderCell>Data de Nascimento</Table.HeaderCell>
                               <Table.HeaderCell>Fone Celular</Table.HeaderCell>
                               <Table.HeaderCell>Fone Fixo</Table.HeaderCell>
@@ -116,9 +118,11 @@ return(
 
                           { lista.map(cliente => (
 
-                              <Table.Row key={cliente.id}>
+                              <Table.Row key={cliente.id}>                                  
                                   <Table.Cell>{cliente.nome}</Table.Cell>
                                   <Table.Cell>{cliente.cpf}</Table.Cell>
+                                  <Table.Cell>{cliente.email}</Table.Cell>
+                                  <Table.Cell>{cliente.senha}</Table.Cell>
                                   <Table.Cell>{formatarData(cliente.dataNascimento)}</Table.Cell>
                                   <Table.Cell>{cliente.foneCelular}</Table.Cell>
                                   <Table.Cell>{cliente.foneFixo}</Table.Cell>

@@ -141,8 +141,8 @@ export default function ListEntregador() {
                                         <Button
                                             inverted
                                             circular
-                                            color='grey'
-                                            title='Clique aqui para remover este entregador'
+                                            color='blue'
+                                            title='Clique aqui para visualizar dados completo deste entregador'
                                             icon
                                             onClick={() => setShowMore(entregador)}>
                                             <Icon name='eye' color='grey' />
